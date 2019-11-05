@@ -3,9 +3,8 @@ import smart_contract as sc
 
 seed = bytes("Catalyst",'utf-8')
 prev_ledg_update = wp.give_rand_no(seed)
-no_worker = 100
-no_prod = 3
-
+no_worker = 10
+no_prod = 5
 list_of_prods = []
 
 for PiD in range(no_worker):

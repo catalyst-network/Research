@@ -2,6 +2,20 @@ import json
 import worker_pool as wp
 
 
+def check_fees(prod_info):
+
+    """
+        Simple bool to check whether user has paid fees
+        This function is currently redundent as it could as easily be checked earlier, 
+        will update to check that the workers ammount paid is correct
+    """
+
+    if prod_info == True:
+        return (True)
+    else:
+        return(False)
+
+
 def gen_big_rand(list_of_rands):
     '''
         This finction creates big_rand. This is the global random number that the users
@@ -17,16 +31,6 @@ def gen_big_rand(list_of_rands):
     return (big_rand)
 
 
-def check_fees(prod_info):
-
-    """
-        Simple bool to check whether user has paid fees
-    """
-
-    if prod_info == True:
-        return (True)
-    else:
-        return(False)
 
 
 def check_corr_rando(rand_no, personal_rand, prev_ledg_update):
@@ -60,7 +64,12 @@ def find_prod_ids(dist_list, no_prod):
                     worker = i
                 else:
                     continue
-    print(list_of_prod)
+    PIDs = []
+    for i in list_of_prod:
+        PIDs.append(i[0])
+    PIDs.sort()
+    print(PIDs)
+
 
 
 def get_dist_from_big_rand(global_rand, list_of_prods):
@@ -98,16 +107,21 @@ def run_sc(no_prods, prev_ledg_update, list_of_prods, no_prod):
     for prod_info in list_of_prods:
         if check_fees(prod_info[3]) == True:
             print("Producer ", prod_info[0], "paid their fees")
+
         elif check_fees(prod_info[3]) == False:
             print("Producer ", prod_info[0], "did not pay their fees")
+            list_of_prods.remove(prod_info)
             continue
+            #This part is now skipping over the proceeding producer if the above chack fails 
         
         if check_corr_rando(prod_info[1], prod_info[2], prev_ledg_update) == True:
             print("Producer ", prod_info[0], "has a well formed random")
 
         elif check_corr_rando(prod_info[1], prod_info[2], prev_ledg_update) == False:
             print("Producer ", prod_info[0], "failed to produce a well formed random")
+            list_of_prods.remove(prod_info)
             continue
+            
 
         list_of_rands.append(prod_info[1])
     global_rand = gen_big_rand(list_of_rands)

@@ -13,7 +13,7 @@ def worker_info(PiD, last_ledger_value):
     """
 
     work_info_list = []
-    fee_paid = True
+    fee_paid = did_they_pay_fee()
     personal_rand = random.randint(1,2**512)
     combined_rand = bytes(str((personal_rand + last_ledger_value) % 2**512),'utf-8') 
     rand_no = give_rand_no(combined_rand)
@@ -21,7 +21,7 @@ def worker_info(PiD, last_ledger_value):
     work_info_list.append(rand_no)
     work_info_list.append(personal_rand)
     work_info_list.append(fee_paid)
-    print(work_info_list)
+    #print(work_info_list)
     return (work_info_list)
 
 
@@ -38,3 +38,10 @@ def give_rand_no(combined_rand):
     return (rand_no)
 
 
+
+def did_they_pay_fee():
+    odds = random.randint(0,9)
+    if odds == 1:
+        return False
+    else:
+        return True
