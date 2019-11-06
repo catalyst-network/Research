@@ -40,6 +40,11 @@ def give_rand_no(combined_rand):
 
 
 def did_they_pay_fee():
+    """
+        This randomises some worker nodes to not having paid fees
+    """
+
+
     odds = random.randint(0,9)
     if odds == 1:
         return False
