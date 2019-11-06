@@ -1,6 +1,16 @@
 import hashlib as hash 
 import random
 
+
+def setup_worker_lists(no_worker, prev_ledg_update):
+    
+    list_of_workers = []
+    for PiD in range(no_worker):
+        work_info_list = worker_info(PiD, prev_ledg_update)
+        list_of_workers.append(work_info_list)
+    return list_of_workers
+
+
 def worker_info(PiD, last_ledger_value):
 
     """
