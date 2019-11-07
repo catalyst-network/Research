@@ -3,6 +3,9 @@ import random
 
 
 def setup_worker_lists(no_worker, prev_ledg_update):
+    """
+    Generates the list of workers and their coresponding information (Random no. and fees paid
+    """
     
     list_of_workers = []
 

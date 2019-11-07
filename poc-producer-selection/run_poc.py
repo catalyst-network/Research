@@ -10,7 +10,7 @@ def run_PoC():
     """
     seed = bytes("Catalyst",'utf-8')
     prev_ledg_update = wp.gen_rand_no(seed)
-    no_worker = 1000
+    no_worker = 100000
     no_prod = 500
 
     list_of_workers = wp.setup_worker_lists(no_worker, prev_ledg_update)
