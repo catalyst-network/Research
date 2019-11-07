@@ -129,9 +129,7 @@ def run_sc(no_prods, prev_ledg_update, list_of_workers, no_prod):
             print("Worker ", worker_info[0], "did not pay their fees")
             list_of_workers.remove(worker_info)
             
-            continue
-            
-            #This part is now skipping over the proceeding producer if the above chack fails    
+            continue 
         
         if check_corr_rando(worker_info[1], worker_info[2], prev_ledg_update) == True:
             print("Worker ", worker_info[0], "has a well formed random")
