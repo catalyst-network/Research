@@ -1,9 +1,15 @@
 import worker_pool as wp
 import smart_contract as sc
 
-def run_prod_selection():
+def run_PoC():
+    """
+    Runs the PoC. Change vairiables here:
+    seed = bytes of a string (any string can be input)
+    no_worker = the nuber of nodes in the worker pool
+    no_prod = Number of producer nodes to be selected from the worker pool
+    """
     seed = bytes("Catalyst",'utf-8')
-    prev_ledg_update = wp.give_rand_no(seed)
+    prev_ledg_update = wp.gen_rand_no(seed)
     no_worker = 10
     no_prod = 5
 
@@ -11,4 +17,4 @@ def run_prod_selection():
     sc.run_sc(no_worker, prev_ledg_update, list_of_workers, no_prod)
 
 if __name__ == '__main__':
-    run_prod_selection()
+    run_PoC()

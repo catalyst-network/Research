@@ -5,9 +5,11 @@ import random
 def setup_worker_lists(no_worker, prev_ledg_update):
     
     list_of_workers = []
+
     for PiD in range(no_worker):
         work_info_list = worker_info(PiD, prev_ledg_update)
         list_of_workers.append(work_info_list)
+
     return list_of_workers
 
 
@@ -21,21 +23,20 @@ def worker_info(PiD, last_ledger_value):
     - personal_rand, is the user selected random int
     - fee_paid, is a bool as to whether the fee has been paid 
     """
-
     work_info_list = []
-    fee_paid = did_they_pay_fee()
+    fee_paid = worker_pay_fee()
     personal_rand = random.randint(1,2**512)
     combined_rand = bytes(str((personal_rand + last_ledger_value) % 2**512),'utf-8') 
-    rand_no = give_rand_no(combined_rand)
+    rand_no = gen_rand_no(combined_rand)
     work_info_list.append(PiD)
     work_info_list.append(rand_no)
     work_info_list.append(personal_rand)
     work_info_list.append(fee_paid)
-    #print(work_info_list)
+
     return (work_info_list)
 
 
-def give_rand_no(combined_rand):
+def gen_rand_no(combined_rand):
 
     """
     This function generates a randomised number after hashing an input. 
@@ -45,18 +46,20 @@ def give_rand_no(combined_rand):
     rand_no.update(combined_rand)
     rand_no = rand_no.hexdigest()
     rand_no = int(rand_no, base=16)
+
     return (rand_no)
 
 
-
-def did_they_pay_fee():
+def worker_pay_fee():
     """
         This randomises some worker nodes to not having paid fees
     """
-
-
     odds = random.randint(0,9)
+
     if odds == 1:
+
         return False
+
     else:
+
         return True
