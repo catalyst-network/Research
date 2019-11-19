@@ -9,7 +9,7 @@
 [![Twitter Follow](https://img.shields.io/twitter/follow/catalystnetorg?style=social)](https://twitter.com/catalystnetorg)
 </div>
 
-This repo contains highly experimental blockchain and distributed system research, by the Catalyst research team. The contents of this repo shouldn't be used as a reference to specific implementation details, please refer to the [Whitepapr](https://github.com/catalyst-network/whitepaper) [Protocol specification](https://github.com/catalyst-network/protocol-protobuffs) for this information.
+This repo contains highly experimental blockchain and distributed system research, by the Catalyst research team. The contents of this repo shouldn't be used as a reference to specific implementation details, please refer to the [Whitepapr](https://github.com/catalyst-network/whitepaper) and/or [Protocol specification](https://github.com/catalyst-network/protocol-protobuffs) for this information.
 
 
 **Table of Contents**
