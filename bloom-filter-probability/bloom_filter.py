@@ -3,6 +3,14 @@ import mmh3
 from bitarray import bitarray
 import random
 
+gb_fp_prob = 0.001
+gb_hash_count = 5
+#gb_seed = 1008
+##random.seed(gb_seed)
+#gb_rand = random.randint(0, 1000)
+
+
+
 
 class BloomFilter(object):
     '''

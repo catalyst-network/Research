@@ -17,10 +17,10 @@ import gen_bf as gen
 if __name__ == '__main__':
 
     m_prop_ratio = 0.75
-    num_of_producers = 10 
+    num_of_producers = 1000
     
     prod_bfs = gen.create_array_of_bf(num_of_producers, m_prop_ratio) 
 
     print (prod_bfs)
 
-    list_of_checks = prod_check_arrays(array_of_bf, num_of_producers, ratio)
+    list_of_checks = gen.prod_check_arrays(array_of_bf, num_of_producers, ratio)
