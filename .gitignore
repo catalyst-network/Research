@@ -4,3 +4,5 @@
 poc-producer-selection/__pycache__/
 
 poc-producer-selection/worker-data.json
+
+*.pyc
