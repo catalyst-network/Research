@@ -13,6 +13,14 @@ If < n print how many and why it failed.
 
 import gen_bf as gen
 
-def create_list_of_bf(list_of_prod):
-    prod_bfs = gen.create_array_of_bf(num_of_producers)
 
+if __name__ == '__main__':
+
+    m_prop_ratio = 0.75
+    num_of_producers = 10 
+    
+    prod_bfs = gen.create_array_of_bf(num_of_producers, m_prop_ratio) 
+
+    print (prod_bfs)
+
+    list_of_checks = prod_check_arrays(array_of_bf, num_of_producers, ratio)

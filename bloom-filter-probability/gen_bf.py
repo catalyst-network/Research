@@ -27,9 +27,9 @@ def create_array_of_bf(num_of_producers, ratio):
     return(array_of_bf)
 
 
-if __name__ == '__main__':
-
-    m_prop_ratio = 0.75
-    num_of_producers = 10 
-    bf_array = create_array_of_bf(num_of_producers, m_prop_ratio)
-    print (bf_array)
+def prod_check_arrays(array_of_bf, num_of_producers, ratio):
+    '''
+    Each prod gens new rando list
+    checks each associated bf 
+    if a peer appears in >= 50% of lists then tick them off
+    '''
