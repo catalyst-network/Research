@@ -212,11 +212,11 @@ class BloomFilter(object):
 
         return str_out
 
-    def check(self, item, gb_rand = 10000):
+    def check(self, item):
         '''
         Check for existence of an item in filter
         '''
-        b_item = bytes(item*gb_rand)
+        b_item = bytes(item)
         for i in range(self.hash_count):
             digest = mmh3.hash(b_item, i) % self.size
             if self.bit_array[digest] == False:

@@ -12,15 +12,46 @@ If < n print how many and why it failed.
 '''
 
 import gen_bf as gen
+import numpy as np
+import csv
 
 
 if __name__ == '__main__':
 
-    m_prop_ratio = 0.75
-    num_of_producers = 1000
     
-    prod_bfs = gen.create_array_of_bf(num_of_producers, m_prop_ratio) 
 
-    print (prod_bfs)
+    min_prop_ratio = 0.75
+    max_prop_ratio = 0.81
+    min_num_producers = 100
+    max_of_producers = 200
+    tests = 100
+    full_list_fails = []
+    with open('fail_data.csv', mode='w') as fail_data:
+        fail_writer = csv.writer(fail_data, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        fail_writer.writerow(["No. Runs", "No. Fails", "No. Prods", "Ratio", "% Fail"])
+        for j in range(min_num_producers, max_of_producers, 100):
 
-    list_of_checks = gen.prod_check_arrays(array_of_bf, num_of_producers, ratio)
+            for k in np.arange(min_prop_ratio, max_prop_ratio, 0.01):
+                total_fail = 0
+                list_of_fails = []  
+                print("Begining test with", tests, "runs at mp ratio", k, "and", j, "producers")
+                for i in range(tests):
+                
+                    
+        
+                    #print("begin run", i)
+
+                    prod_bfs = gen.create_array_of_bf(j, k) 
+
+
+                    failed_run = gen.prod_check_arrays(prod_bfs, j, k)
+                    total_fail += failed_run
+                    #print("run", i, "had", failed_run, "failures")
+                list_of_fails.append(tests)
+                list_of_fails.append(total_fail)
+                list_of_fails.append(j)
+                list_of_fails.append(k)
+                list_of_fails.append((total_fail / (j * tests)) * 100)
+                print(list_of_fails)
+                
+                fail_writer.writerow([list_of_fails])
