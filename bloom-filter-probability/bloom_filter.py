@@ -227,6 +227,14 @@ class BloomFilter(object):
         return True
 
     @classmethod
+    def get_fp_rate(self, k, n, m):
+
+        p = (1 - math.exp(-k * n / m))**k
+
+        return int(p)
+
+
+    @classmethod
     def get_size(self, n, p):
         '''
         Return the size of bit array(m) to used using
