@@ -1,0 +1,10 @@
+numpy
+scipy
+matplotlib
+cycler
+mmh3
+bitarray
+pandas
+openpyxl
+xlrd
+xlsxwriter

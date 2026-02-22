@@ -9,7 +9,19 @@
 [![Twitter Follow](https://img.shields.io/twitter/follow/catalystnetorg?style=social)](https://twitter.com/catalystnetorg)
 </div>
 
-This repo contains highly experimental blockchain and distributed system research, by the Catalyst research team. The contents of this repo shouldn't be used as a reference to specific implementation details, please refer to the [Whitepapr](https://github.com/catalyst-network/whitepaper) and/or [Protocol specification](https://github.com/catalyst-network/protocol-protobuffs) for this information.
+This repo contains highly experimental blockchain and distributed system research, by the Catalyst research team. The contents of this repo shouldn't be used as a reference to specific implementation details, please refer to the [Whitepaper](https://github.com/catalyst-network/whitepaper) and/or [Protocol specification](https://github.com/catalyst-network/protocol-protobuffs) for this information.
+
+### Setup
+
+Most subprojects are Python scripts. A minimal dependency set is provided at the repo root in `requirements.txt`.
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+See the `README.md` inside each subdirectory for run instructions.
 
 
 **Table of Contents**

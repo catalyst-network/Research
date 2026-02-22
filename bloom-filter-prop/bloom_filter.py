@@ -2,6 +2,7 @@ import math
 import mmh3
 from bitarray import bitarray
 import random
+from typing import Optional
 
 gb_fp_prob = 0.001
 gb_hash_count = 5
@@ -37,6 +38,10 @@ class BloomFilter(object):
         # Maximum number of items that should be stored in BF
         self.num_items = num_items
 
+        # Per-filter salt used to derive bytes for hashing.
+        # Captured at init time to keep add/check consistent even if globals change.
+        self.salt = globals().get("gb_rand", 0)
+
         # Size of bit array to use
         self.size = self.get_size(self.num_items, self.fp_prob)
 
@@ -48,6 +53,13 @@ class BloomFilter(object):
 
         # initialize all integer bits as 0
         self.num_array = [0 for __ in range(self.size)]
+
+    def _item_bytes(self, item: int, *, salt: Optional[int] = None) -> bytes:
+        use_salt = self.salt if salt is None else salt
+        return f"{int(item)}:{int(use_salt)}".encode("utf-8")
+
+    def _digest(self, b_item: bytes, i: int) -> int:
+        return mmh3.hash(b_item, i, signed=False) % self.size
 
 
     def manual_init(self, fp_prob, num_hash, num_items):
@@ -68,6 +80,8 @@ class BloomFilter(object):
 
         # Maximum number of items that should be stored in BF
         self.num_items = num_items
+
+        self.salt = globals().get("gb_rand", 0)
 
         # Size of bit array to use
         self.size = self.get_size(self.num_items, self.fp_prob)
@@ -90,6 +104,8 @@ class BloomFilter(object):
 
         # Maximum number of items that should be stored in BF
         self.num_items = num_items
+
+        self.salt = globals().get("gb_rand", 0)
 
         # False possible probability in decimal
         self.fp_prob = gb_fp_prob
@@ -116,16 +132,14 @@ class BloomFilter(object):
         '''
         digests = []
         count_bit_used = 0
-        #b_item = bytes(item*1000)
-
-        b_item = bytes(item*gb_rand)
+        b_item = self._item_bytes(item)
 
         for i in range(self.hash_count):
             # create digest for given item.
             # i work as seed to mmh3.hash() function
             # With different seed, digest created is different
 
-            digest = mmh3.hash(b_item, i) % self.size
+            digest = self._digest(b_item, i)
 
             if self.bit_array[digest] == True:
                 # print ("Bit {} (hash {}) already set to 1".format(digest,i))
@@ -190,9 +204,9 @@ class BloomFilter(object):
         '''
         Check for existence of an item in filter
         '''
-        b_item = bytes(item*gb_rand)
+        b_item = self._item_bytes(item)
         for i in range(self.hash_count):
-            digest = mmh3.hash(b_item, i) % self.size
+            digest = self._digest(b_item, i)
             if self.num_array[digest] < threshold:
                 # if any of bit is False then,its not present
                 # in filter
@@ -205,10 +219,10 @@ class BloomFilter(object):
         '''
         Check for existence of an item in filter
         '''
-        b_item = bytes(item*gb_rand)
+        b_item = self._item_bytes(item)
         str_out = "["
         for i in range(self.hash_count):
-            digest = mmh3.hash(b_item, i) % self.size
+            digest = self._digest(b_item, i)
             str_out += str(digest)
             if i < (self.hash_count-1):
                 str_out += ", "
@@ -216,13 +230,13 @@ class BloomFilter(object):
 
         return str_out
 
-    def check(self, item, gb_rand = 10000):
+    def check(self, item, salt: Optional[int] = None):
         '''
         Check for existence of an item in filter
         '''
-        b_item = bytes(item*gb_rand)
+        b_item = self._item_bytes(item, salt=salt)
         for i in range(self.hash_count):
-            digest = mmh3.hash(b_item, i) % self.size
+            digest = self._digest(b_item, i)
             if self.bit_array[digest] == False:
                 # if any of bit is False then,its not present
                 # in filter

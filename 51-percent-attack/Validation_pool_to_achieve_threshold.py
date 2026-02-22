@@ -62,6 +62,6 @@ plt.xticks(np.arange(bottom-top2, top+top2, step=top2))
 plt.xlim(bottom,top)
 plt.xlabel('N (tpool of workers)')
 plt.ylabel('min(V/N) for prob < {}'.format(proba_thre))
-plt.legend(title=(' V $\geq$ {} \n Percentage O/N:'.format(lowV)),loc='upper right')
+plt.legend(title=(r' V $\geq$ {} \n Percentage O/N:'.format(lowV)),loc='upper right')
 plt.savefig('Graphs/Validation_pool_to_achieve_threshold/graph_V_over_N_at_prob_{}vs_N_for_range_{}_to_{}_O_at_{}_minV_at_{}.png'.format(proba_thre,bottom,top,strRangeO,lowV))
 

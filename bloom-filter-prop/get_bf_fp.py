@@ -9,8 +9,6 @@ def make_bfs(num_of_producers, prop_bf):
     seed_init = random.randint(1, 10000)
     bf.init_seed(seed_init)
 
-    global_bf = bf.BloomFilter(num_of_producers)
-
     list_of_bfs = []
 
     num_prod_in_list = int(num_of_producers * prop_bf)
@@ -19,7 +17,7 @@ def make_bfs(num_of_producers, prop_bf):
     
     for i in range(num_of_producers):
         prod_list = random.sample(list_of_corr_prod, num_item_added_to_bf)
-        prod_bf = global_bf
+        prod_bf = bf.BloomFilter(num_of_producers)
         for j in prod_list:
             prod_bf.add(j, False)
         list_of_bfs.append(prod_bf)
@@ -88,7 +86,7 @@ def itterate_bfs(num_of_producers, num_runs, prop_bf, fp_rate, hash_count):
     
     pool = mp.Pool(mp.cpu_count())
 
-    fp_counts = pool.starmap(check_id_bf, [(num_of_producers+i, global_bf, seed_init) for i in range(num_runs*num_false_prod)])
+    fp_counts = pool.starmap(check_id_bf, [(num_of_producers + i, global_bf) for i in range(num_runs * num_false_prod)])
     
     pool.close()
 
@@ -105,10 +103,8 @@ def itterate_bfs(num_of_producers, num_runs, prop_bf, fp_rate, hash_count):
     print("False Positive ", fp_count, " --> <", fp_count / num_runs, ">")
     return fp_count
 
-def check_id_bf(id, global_bf, seed_init):
-
-    #bf.init_seed(seed_init)
-    return global_bf.check(id, seed_init)
+def check_id_bf(id, global_bf):
+    return global_bf.check(id)
 
 if __name__ == '__main__':
 

@@ -44,8 +44,8 @@ tickbin = 1
 plt.xticks(np.arange(0,3,step=1))
 plt.ylim(0,1)
 plt.xlim(lowbin,maxbin)
-plt.xlabel('#[h($\delta_L$)] bins',fontsize = 12)
-plt.ylabel('r $\pm$ $\Delta r$',fontsize = 15)
+plt.xlabel(r'#[h($\delta_L$)] bins',fontsize = 12)
+plt.ylabel(r'r $\pm$ $\Delta r$',fontsize = 15)
 # (99.999% confidence level)')
 plt.axhline(y=.5)
 #Second plot r +- delta_r
@@ -59,7 +59,7 @@ plt.fill_between(x, y-error, y+error,edgecolor='black',linewidth=0.2, hatch='///
 plt.fill_between(x2, y2-error2, y2+error2,edgecolor='black',linewidth=0.2, hatch='///', facecolor='azure',label='_nolegend_')
 #props = dict(boxstyle='round', facecolor='lavenderblush', alpha=0.5)
 #plt.text(1.6,0.95,' r = ' + str(int(r*100)) + '% \n\n V = ' + str(V),verticalalignment='top',bbox=props)
-plt.legend(title='r={}% \n $\Delta r(V)$ (99.999% CL):'.format(r), loc='upper right')
+plt.legend(title=r'r={}% \n $\Delta r(V)$ (99.999% CL):'.format(r), loc='upper right')
 #plt.show()
 plt.savefig('Graphs/histogram_r/bar_graph_rDeltaR_over_V_at_99.999_at_r_{}.png'.format(r))
 

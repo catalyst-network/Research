@@ -118,30 +118,24 @@ def run_sc(no_prods, prev_ledg_update, list_of_workers, no_prod):
     """
     
     list_of_rands = []
+    eligible_workers = []
 
-    for worker_info in reversed(list_of_workers):
+    for worker_info in list_of_workers:
         print(worker_info[0])
-        if check_fees(worker_info[3]) == True:
+
+        if check_fees(worker_info[3]) is True:
             print("Worker ", worker_info[0], "paid their fees")
-
-        elif check_fees(worker_info[3]) == False:
-            
+        else:
             print("Worker ", worker_info[0], "did not pay their fees")
-            list_of_workers.remove(worker_info)
-            
-            continue 
-        
-        if check_corr_rando(worker_info[1], worker_info[2], prev_ledg_update) == True:
-            print("Worker ", worker_info[0], "has a well formed random")
-            
-
-        elif check_corr_rando(worker_info[1], worker_info[2], prev_ledg_update) == False:
-            print("Worker ", worker_info[0], "failed to produce a well formed random")
-            list_of_workers.remove(worker_info)
-
             continue
-            
 
+        if check_corr_rando(worker_info[1], worker_info[2], prev_ledg_update) is True:
+            print("Worker ", worker_info[0], "has a well formed random")
+        else:
+            print("Worker ", worker_info[0], "failed to produce a well formed random")
+            continue
+
+        eligible_workers.append(worker_info)
         list_of_rands.append(worker_info[1])
 
     global_rand = gen_big_rand(list_of_rands)
@@ -149,7 +143,7 @@ def run_sc(no_prods, prev_ledg_update, list_of_workers, no_prod):
     if global_rand == 0:
         print("Something went wrong global_rand was 0")
 
-    dist_list = get_dist_from_big_rand(global_rand, list_of_workers) 
+    dist_list = get_dist_from_big_rand(global_rand, eligible_workers)
     PIDs = find_prod_ids(dist_list, no_prod)
 
     for producer in PIDs:
